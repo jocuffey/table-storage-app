@@ -1,7 +1,8 @@
 namespace TableStoragePoc.Models;
 
-public abstract class TimeValue
+public class TimeValue
 {
+    public TimeValue() {}
     public string AQTVL_GUID { get; set; } = null!;
     public string AQTE_GUID { get; set; } = null!;
     public string TE_VALUE { get; set; } = null!;

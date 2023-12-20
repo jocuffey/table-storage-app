@@ -1,4 +1,5 @@
 using Azure.Data.Tables;
+using TableStoragePoc.Models;
 using TableStoragePoc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,5 +27,17 @@ app.MapGet("/{id}", (int id) =>
     var entities = azureTableService.GetValuesByTimeseries(tableClient, id);
     return entities;
 });
+
+app.MapPost("/", async (TimeValue value) =>
+{
+    var entity = await azureTableService.AddEntity(tableClient, value);
+    return entity;
+});
+
+app.MapGet("/batchInsert", async () =>
+{
+    var ms = await azureTableService.BatchInsert(tableClient);
+    return $"Batch insert took {ms} ms";
+}); 
 
 app.Run();
